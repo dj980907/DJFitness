@@ -21,13 +21,27 @@ const Container = styled.div`
 `;
 
 function App() {
-  const { currentUser } = useSelector((state) => state.user);
+  // const { currentUser } = useSelector((state) => state.user);
+  const [user, setuser] = useState(true);
   return (
     <ThemeProvider theme={lightTheme}>
       <BrowserRouter>
-        {currentUser ? (
+        {/* {currentUser ? (
           <Container>
             <Navbar currentUser={currentUser} />
+            <Routes>
+              <Route path="/" exact element={<Dashboard />} />
+              <Route path="/workouts" exact element={<Workouts />} />
+            </Routes>
+          </Container>
+        ) : (
+          <Container>
+            <Authentication />
+          </Container>
+        )} */}
+        {user ? (
+          <Container>
+            <Navbar />
             <Routes>
               <Route path="/" exact element={<Dashboard />} />
               <Route path="/workouts" exact element={<Workouts />} />

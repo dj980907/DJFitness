@@ -81,20 +81,22 @@ const Desc = styled.div`
 `;
 
 const CountsCard = ({ item, data }) => {
+  const value = data && data[item.key];
+  const formattedValue = typeof value === 'number' ? value.toFixed(2) : 'N/A';
   return (
     <Card>
       <Left>
         <Title>{item.name}</Title>
         <Value>
-          {data && data[item.key].toFixed(2)}
+          {formattedValue}
           <Unit>{item.unit}</Unit>
           <Span positive>(+10%)</Span>
         </Value>
         <Desc>{item.desc}</Desc>
       </Left>
-      <Icon color={item.color} bg={item.lightColor}>
+      {/* <Icon color={item.color} bg={item.lightColor}>
         {item.icon}
-      </Icon>
+      </Icon> */}
     </Card>
   );
 };

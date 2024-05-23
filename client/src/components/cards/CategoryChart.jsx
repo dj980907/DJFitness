@@ -28,14 +28,14 @@ const Title = styled.div`
 const CategoryChart = ({ data }) => {
   return (
     <Card>
-      <Title>Weekly Calories Burned</Title>
+      <Title>Workout Categories</Title>
       {data?.pieChartData && (
         <PieChart
           series={[
             {
               data: data?.pieChartData,
-              innerRadius: 30,
-              outerRadius: 120,
+              innerRadius: 15,
+              outerRadius: 70,
               paddingAngle: 5,
               cornerRadius: 5,
             },

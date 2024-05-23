@@ -105,7 +105,7 @@ const Workouts = () => {
         <Right>
           <Section>
             <SecTitle>Todays Workout</SecTitle>
-            {loading ? (
+            {/* {loading ? (
               <CircularProgress />
             ) : (
               <CardWrapper>
@@ -113,7 +113,17 @@ const Workouts = () => {
                   <WorkoutCard workout={workout} />
                 ))}
               </CardWrapper>
-            )}
+            )} */}
+            <CardWrapper>
+              <WorkoutCard />
+              <WorkoutCard />
+              <WorkoutCard />
+              <WorkoutCard />
+              <WorkoutCard />
+              <WorkoutCard />
+              <WorkoutCard />
+              <WorkoutCard />
+            </CardWrapper>
           </Section>
         </Right>
       </Wrapper>

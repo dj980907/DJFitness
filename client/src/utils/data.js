@@ -6,7 +6,7 @@ import {
   
   export const counts = [
     {
-      name: "Calories Burned",
+      name: "Calories Burnt",
       icon: (
         <LocalFireDepartmentRounded sx={{ color: "inherit", fontSize: "26px" }} />
       ),
@@ -26,7 +26,7 @@ import {
       lightColor: "#E8F6F3",
     },
     {
-      name: "Average  Calories Burned",
+      name: "Average  Calories Burnt",
       icon: <TimelineRounded sx={{ color: "inherit", fontSize: "26px" }} />,
       desc: "Average Calories Burned on each workout",
       key: "avgCaloriesBurntPerWorkout",
