@@ -52,7 +52,7 @@ const SignUp = () => {
           setButtonDisabled(false);
         })
         .catch((err) => {
-          alert(err.response.data.message);
+          // alert(err.response.data.message);
           setLoading(false);
           setButtonDisabled(false);
         });

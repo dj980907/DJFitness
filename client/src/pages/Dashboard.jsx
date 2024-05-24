@@ -76,7 +76,7 @@ const Dashboard = () => {
 
   const dashboardData = async () => {
     setLoading(true);
-    const token = localStorage.getItem("fittrack-app-token");
+    const token = localStorage.getItem("djfitness-app-token");
     await getDashboardDetails(token).then((res) => {
       setData(res.data);
       console.log(res.data);
@@ -85,7 +85,7 @@ const Dashboard = () => {
   };
   const getTodaysWorkout = async () => {
     setLoading(true);
-    const token = localStorage.getItem("fittrack-app-token");
+    const token = localStorage.getItem("djfitness-app-token");
     await getWorkouts(token, "").then((res) => {
       setTodaysWorkouts(res?.data?.todaysWorkouts);
       console.log(res.data);
@@ -95,7 +95,7 @@ const Dashboard = () => {
 
   const addNewWorkout = async () => {
     setButtonLoading(true);
-    const token = localStorage.getItem("fittrack-app-token");
+    const token = localStorage.getItem("djfitness-app-token");
     await addWorkout(token, { workoutString: workout })
       .then((res) => {
         dashboardData();
@@ -111,50 +111,50 @@ const Dashboard = () => {
     dashboardData();
     getTodaysWorkout();
   }, []);
-  const testData = {
-    totalCaloriesBurnt: 13700,
-    totalWorkouts: 6,
-    avgCaloriesBurntPerWorkout: 22500,
-    totalWeeksCaloriesBurnt: {
-      weeks: ["17th", "18th", "19th", "20th", "21st", "22nd", "23rd"],
-      caloriesBurned: [10500, 0, 0, 0, 0, 0, 13500]
-    },
-    pieChartData: [
-      {
-        id: 0,
-        value: 6000,
-        label: "Legs"
-      },
-      {
-        id: 1,
-        value: 1500,
-        label: "Back"
-      },
-      {
-        id: 2,
-        value: 3750,
-        label: "Shoulder"
-      },
-      {
-        id: 3,
-        value: 2250,
-        label: "ABS"
-      },
-    ],
-  };
+  // const testData = {
+  //   totalCaloriesBurnt: 13700,
+  //   totalWorkouts: 6,
+  //   avgCaloriesBurntPerWorkout: 22500,
+  //   totalWeeksCaloriesBurnt: {
+  //     weeks: ["17th", "18th", "19th", "20th", "21st", "22nd", "23rd"],
+  //     caloriesBurned: [10500, 0, 0, 0, 0, 0, 13500]
+  //   },
+  //   pieChartData: [
+  //     {
+  //       id: 0,
+  //       value: 6000,
+  //       label: "Legs"
+  //     },
+  //     {
+  //       id: 1,
+  //       value: 1500,
+  //       label: "Back"
+  //     },
+  //     {
+  //       id: 2,
+  //       value: 3750,
+  //       label: "Shoulder"
+  //     },
+  //     {
+  //       id: 3,
+  //       value: 2250,
+  //       label: "ABS"
+  //     },
+  //   ],
+  // };
   return (
     <Container>
       <Wrapper>
         <Title>Dashboard</Title>
         <FlexWrap>
           {counts.map((item) => (
-            <CountsCard item={item} data={testData} />
+            <CountsCard item={item} data={data} />
           ))}
         </FlexWrap>
 
         <FlexWrap>
-          <WeeklyStatCard data={testData} />
-          <CategoryChart data={testData} />
+          <WeeklyStatCard data={data} />
+          <CategoryChart data={data} />
           <AddWorkout
             workout={workout}
             setWorkout={setWorkout}
@@ -166,17 +166,9 @@ const Dashboard = () => {
         <Section>
           <Title>Todays Workouts</Title>
           <CardWrapper>
-            {/* {todaysWorkouts.map((workout) => (
+            {todaysWorkouts.map((workout) => (
               <WorkoutCard workout={workout} />
-            ))} */}
-            <WorkoutCard />
-            <WorkoutCard />
-            <WorkoutCard />
-            <WorkoutCard />
-            <WorkoutCard />
-            <WorkoutCard />
-            <WorkoutCard />
-            <WorkoutCard />
+            ))}
           </CardWrapper>
         </Section>
       </Wrapper>

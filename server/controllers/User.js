@@ -7,47 +7,62 @@ import Workout from "../models/Workout.js";
 
 dotenv.config();
 
+
+// this is for when the user signs up
 export const UserRegister = async (req, res, next) => {
   try {
     const { email, password, name, img } = req.body;
 
     // Check if the email is in use
     const existingUser = await User.findOne({ email }).exec();
+
+    // if there is the same email, return error
     if (existingUser) {
       return next(createError(409, "Email is already in use."));
     }
 
+    // create salt and hash the password
     const salt = bcrypt.genSaltSync(10);
     const hashedPassword = bcrypt.hashSync(password, salt);
 
+    // create the user
     const user = new User({
       name,
       email,
       password: hashedPassword,
       img,
     });
+
+    // save it to the mongodb
     const createdUser = await user.save();
     const token = jwt.sign({ id: createdUser._id }, process.env.JWT, {
       expiresIn: "1h",
     });
+    // send 200 OK
     return res.status(200).json({ token, user });
   } catch (error) {
     return next(error);
   }
 };
 
+// this is when the user logs in
 export const UserLogin = async (req, res, next) => {
   try {
     const { email, password } = req.body;
 
+    // find the user with email
     const user = await User.findOne({ email: email });
+
     // Check if user exists
     if (!user) {
       return next(createError(404, "User not found"));
     }
     console.log(user);
+
     // Check if password is correct
     const isPasswordCorrect = await bcrypt.compareSync(password, user.password);
+
+    // if the password is wrong, then return error
     if (!isPasswordCorrect) {
       return next(createError(403, "Incorrect password"));
     }
@@ -62,6 +77,7 @@ export const UserLogin = async (req, res, next) => {
   }
 };
 
+// function that gets the dashboard 
 export const getUserDashboard = async (req, res, next) => {
   try {
     const userId = req.user?.id;
