@@ -53,37 +53,20 @@ const Details = styled.div`
 
 const WorkoutCard = ({ workout }) => {
   return (
-    // <Card>
-    //   <Category>#{workout?.category}</Category>
-    //   <Name>{workout?.workoutName}</Name>
-    //   <Sets>
-    //     Count: {workout?.sets} sets X {workout?.reps} reps
-    //   </Sets>
-    //   <Flex>
-    //     <Details>
-    //       <FitnessCenterRounded sx={{ fontSize: "20px" }} />
-    //       {workout?.weight} kg
-    //     </Details>
-    //     <Details>
-    //       <TimelapseRounded sx={{ fontSize: "20px" }} />
-    //       {workout?.duration} min
-    //     </Details>
-    //   </Flex>
-    // </Card>
     <Card>
-      <Category>#Legs</Category>
-      <Name>Back Squat</Name>
+      <Category>#{workout?.category}</Category>
+      <Name>{workout?.workoutName}</Name>
       <Sets>
-        Count: 5 sets X 10 reps
+        Count: {workout?.sets} sets X {workout?.reps} reps
       </Sets>
       <Flex>
         <Details>
           <FitnessCenterRounded sx={{ fontSize: "20px" }} />
-          30 kg
+          {workout?.weight} kg
         </Details>
         <Details>
           <TimelapseRounded sx={{ fontSize: "20px" }} />
-          10 min
+          {workout?.duration} min
         </Details>
       </Flex>
     </Card>

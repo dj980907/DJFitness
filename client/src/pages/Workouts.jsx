@@ -80,7 +80,7 @@ const Workouts = () => {
 
   const getTodaysWorkout = async () => {
     setLoading(true);
-    const token = localStorage.getItem("fittrack-app-token");
+    const token = localStorage.getItem("djfitness-app-token");
     await getWorkouts(token, date ? `?date=${date}` : "").then((res) => {
       setTodaysWorkouts(res?.data?.todaysWorkouts);
       console.log(res.data);
@@ -105,7 +105,7 @@ const Workouts = () => {
         <Right>
           <Section>
             <SecTitle>Todays Workout</SecTitle>
-            {/* {loading ? (
+            {loading ? (
               <CircularProgress />
             ) : (
               <CardWrapper>
@@ -113,17 +113,7 @@ const Workouts = () => {
                   <WorkoutCard workout={workout} />
                 ))}
               </CardWrapper>
-            )} */}
-            <CardWrapper>
-              <WorkoutCard />
-              <WorkoutCard />
-              <WorkoutCard />
-              <WorkoutCard />
-              <WorkoutCard />
-              <WorkoutCard />
-              <WorkoutCard />
-              <WorkoutCard />
-            </CardWrapper>
+            )}
           </Section>
         </Right>
       </Wrapper>
