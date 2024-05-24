@@ -93,13 +93,17 @@ const Dashboard = () => {
     });
   };
 
+  // GETTING ERROR HERE!!!!!!!
   const addNewWorkout = async () => {
     setButtonLoading(true);
     const token = localStorage.getItem("djfitness-app-token");
     await addWorkout(token, { workoutString: workout })
       .then((res) => {
+        console.log(1);
         dashboardData();
+        console.log(2);
         getTodaysWorkout();
+        console.log(3);
         setButtonLoading(false);
       })
       .catch((err) => {

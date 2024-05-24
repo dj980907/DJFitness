@@ -36,7 +36,7 @@ export const UserRegister = async (req, res, next) => {
     // save it to the mongodb
     const createdUser = await user.save();
     const token = jwt.sign({ id: createdUser._id }, process.env.JWT, {
-      expiresIn: "1h",
+      expiresIn: "9999 year",
     });
     // send 200 OK
     return res.status(200).json({ token, user });
@@ -68,7 +68,7 @@ export const UserLogin = async (req, res, next) => {
     }
 
     const token = jwt.sign({ id: user._id }, process.env.JWT, {
-      expiresIn: "1h",
+      expiresIn: "9999 year",
     });
 
     return res.status(200).json({ token, user });

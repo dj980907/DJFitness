@@ -39,19 +39,6 @@ function App() {
             <Authentication />
           </Container>
         )}
-        {/* {user ? (
-          <Container>
-            <Navbar />
-            <Routes>
-              <Route path="/" exact element={<Dashboard />} />
-              <Route path="/workouts" exact element={<Workouts />} />
-            </Routes>
-          </Container>
-        ) : (
-          <Container>
-            <Authentication />
-          </Container>
-        )} */}
       </BrowserRouter>
     </ThemeProvider>
   );
