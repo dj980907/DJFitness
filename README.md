@@ -1,2 +1,2 @@
-the problem of adding the workout is that you cannot add the same workout name.
-if you do, it gives you error for duplicate key error
+now i can add duplicate workout for the same day.
+idk if i can add the same workout the next day. i will try it tomorrow.
