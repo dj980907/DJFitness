@@ -1,7 +1,6 @@
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import dotenv from "dotenv";
-import { v4 as uuidv4 } from 'uuid';
 import { createError } from "../error.js";
 import User from "../models/User.js";
 import Workout from "../models/Workout.js";
@@ -313,7 +312,6 @@ const parseWorkoutLine = (parts) => {
   const details = {};
   // console.log(parts);
   if (parts.length >= 5) {
-    details.uniqueKey = uuidv4();
     details.workoutName = parts[1].substring(1).trim();
     details.sets = parseInt(parts[2].split("sets")[0].substring(1).trim());
     details.reps = parseInt(
