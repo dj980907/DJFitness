@@ -13,6 +13,7 @@ const WorkoutSchema = new mongoose.Schema(
     },
     uniqueKey:{
       type: String,
+      unique: true,
     },
     workoutName: {
       type: String,

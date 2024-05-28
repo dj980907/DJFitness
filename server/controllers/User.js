@@ -303,34 +303,6 @@ export const addWorkout = async (req, res, next) => {
       workouts: parsedWorkouts,
     });
 
-    // // Check for duplicates and insert or update accordingly
-    // for (const workout of parsedWorkouts) {
-    //   const existingWorkout = await Workout.findOne({
-    //     workoutName: workout.workoutName,
-    //     user: userId,
-    //   });
-    //   if (existingWorkout) {
-    //     workout.caloriesBurned = parseFloat(calculateCaloriesBurnt(workout));
-    //     // Update existing workout
-    //     await Workout.updateOne(
-    //       { _id: existingWorkout._id },
-    //       { $set: workout }
-    //     );
-    //   } else {
-    //     // Calculate calories burnt for each workout
-    //     workout.caloriesBurned = parseFloat(calculateCaloriesBurnt(workout));
-    //     await Workout.create({ ...workout, user: userId });
-    //   }
-    // }
-
-    // return res.status(201).json({
-    //   message: "Workouts added successfully",
-    //   workouts: parsedWorkouts,
-    // });
-
-
-
-
   } catch (err) {
     next(err);
   }
@@ -364,94 +336,6 @@ const calculateCaloriesBurnt = (workoutDetails) => {
   return durationInMinutes * weightInKg / 10;
 };
 
-
-
-
-
-// export const addWorkout = async (req, res, next) => {
-//   try {
-//     const userId = req.user?.id;
-//     const { workoutString } = req.body;
-//     if (!workoutString) {
-//       return next(createError(400, "Workout string is missing"));
-//     }
-
-//     const eachworkout = workoutString.split(";").map((line) => line.trim());
-//     const categories = eachworkout.filter((line) => line.startsWith("#"));
-//     if (categories.length === 0) {
-//       return next(createError(400, "No categories found in workout string"));
-//     }
-
-//     const parsedWorkouts = [];
-//     let currentCategory = "";
-//     let count = 0;
-
-//     await eachworkout.forEach((line) => {
-//       count++;
-//       if (line.startsWith("#")) {
-//         const parts = line?.split("\n").map((part) => part.trim());
-//         if (parts.length < 5) {
-//           return next(
-//             createError(400, `Workout string is missing for ${count}th workout`)
-//           );
-//         }
-//         currentCategory = parts[0].substring(1).trim();
-//         const workoutDetails = parseWorkoutLine(parts);
-//         if (workoutDetails == null) {
-//           return next(createError(400, "Please enter in proper format "));
-//         }
-//         if (workoutDetails) {
-//           workoutDetails.category = currentCategory;
-//           parsedWorkouts.push(workoutDetails);
-//         }
-//       } else {
-//         return next(
-//           createError(400, `Workout string is missing for ${count}th workout`)
-//         );
-//       }
-//     });
-
-//     await Promise.all(
-//       parsedWorkouts.map(async (workout) => {
-//         workout.caloriesBurned = parseFloat(calculateCaloriesBurnt(workout));
-//         await Workout.create({ ...workout, user: userId });
-//       })
-//     );
-
-//     return res.status(201).json({
-//       message: "Workouts added successfully",
-//       workouts: parsedWorkouts,
-//     });
-//   } catch (err) {
-//     next(err);
-//   }
-// };
-
-// // Function to parse workout details from a line
-// const parseWorkoutLine = (parts) => {
-//   const details = {};
-//   if (parts.length >= 5) {
-//     details.workoutName = parts[1].substring(1).trim();
-//     details.sets = parseInt(parts[2].split("sets")[0].substring(1).trim());
-//     details.reps = parseInt(
-//       parts[2].split("sets")[1].split("reps")[0].substring(1).trim()
-//     );
-//     details.weight = parseFloat(parts[3].split("kg")[0].substring(1).trim());
-//     details.duration = parseFloat(parts[4].split("min")[0].substring(1).trim());
-//     return details;
-//   }
-//   return null;
-// };
-
-// // Function to calculate calories burnt for a workout
-// const calculateCaloriesBurnt = (workoutDetails) => {
-//   const durationInMinutes = parseInt(workoutDetails.duration);
-//   const weightInKg = parseInt(workoutDetails.weight);
-//   const caloriesBurntPerMinute = 5; // Sample value, actual calculation may vary
-//   return durationInMinutes * caloriesBurntPerMinute * weightInKg;
-// };
-
-
 function getDateSuffix(date) {
   const lastDigit = date % 10;
   const lastTwoDigits = date % 100;
@@ -471,3 +355,32 @@ function getDateSuffix(date) {
           return `${date}th`;
   }
 }
+
+
+
+
+
+    // // Check for duplicates and insert or update accordingly
+    // for (const workout of parsedWorkouts) {
+    //   const existingWorkout = await Workout.findOne({
+    //     workoutName: workout.workoutName,
+    //     user: userId,
+    //   });
+    //   if (existingWorkout) {
+    //     workout.caloriesBurned = parseFloat(calculateCaloriesBurnt(workout));
+    //     // Update existing workout
+    //     await Workout.updateOne(
+    //       { _id: existingWorkout._id },
+    //       { $set: workout }
+    //     );
+    //   } else {
+    //     // Calculate calories burnt for each workout
+    //     workout.caloriesBurned = parseFloat(calculateCaloriesBurnt(workout));
+    //     await Workout.create({ ...workout, user: userId });
+    //   }
+    // }
+
+    // return res.status(201).json({
+    //   message: "Workouts added successfully",
+    //   workouts: parsedWorkouts,
+    // });
