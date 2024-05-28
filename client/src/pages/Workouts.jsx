@@ -81,12 +81,18 @@ const Workouts = () => {
   const getTodaysWorkout = async () => {
     setLoading(true);
     const token = localStorage.getItem("djfitness-app-token");
-    await getWorkouts(token, date ? `?date=${date}` : "").then((res) => {
-      setTodaysWorkouts(res?.data?.todaysWorkouts);
-      console.log(res.data);
+    await getWorkouts(token, "").then((res) => {
+      const sortedWorkouts = res?.data?.todaysWorkouts.sort((a, b) => {
+        if (a.category < b.category) return -1;
+        if (a.category > b.category) return 1;
+        return 0;
+      });
+      setTodaysWorkouts(sortedWorkouts);
+      // console.log(sortedWorkouts);
       setLoading(false);
     });
   };
+
 
   useEffect(() => {
     getTodaysWorkout();

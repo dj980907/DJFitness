@@ -79,16 +79,22 @@ const Dashboard = () => {
     const token = localStorage.getItem("djfitness-app-token");
     await getDashboardDetails(token).then((res) => {
       setData(res.data);
-      console.log(res.data);
+      // console.log(res.data);
       setLoading(false);
     });
   };
+
   const getTodaysWorkout = async () => {
     setLoading(true);
     const token = localStorage.getItem("djfitness-app-token");
     await getWorkouts(token, "").then((res) => {
-      setTodaysWorkouts(res?.data?.todaysWorkouts);
-      console.log(res.data);
+      const sortedWorkouts = res?.data?.todaysWorkouts.sort((a, b) => {
+        if (a.category < b.category) return -1;
+        if (a.category > b.category) return 1;
+        return 0;
+      });
+      setTodaysWorkouts(sortedWorkouts);
+      // console.log(sortedWorkouts);
       setLoading(false);
     });
   };
@@ -122,7 +128,7 @@ const Dashboard = () => {
         <Title>Dashboard</Title>
         <FlexWrap>
           {counts.map((item) => (
-            <CountsCard item={item} data={data} />
+            <CountsCard key={item.id} item={item} data={data} />
           ))}
         </FlexWrap>
 
