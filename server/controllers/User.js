@@ -266,8 +266,10 @@ export const addWorkout = async (req, res, next) => {
           );
         }
 
+        console.log("this is parts: ", parts);
         // Update current category
         currentCategory = parts[0].substring(1).trim();
+        console.log("this is parts: ", parts);
         // Extract workout details
         const workoutDetails = parseWorkoutLine(parts);
         if (workoutDetails == null) {
@@ -286,6 +288,8 @@ export const addWorkout = async (req, res, next) => {
       }
     });
 
+
+    console.log(parsedWorkouts);
     // // Calculate calories burnt for each workout
     // await parsedWorkouts.forEach(async (workout) => {
     //   workout.caloriesBurned = parseFloat(calculateCaloriesBurnt(workout));
