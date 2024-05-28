@@ -11,6 +11,9 @@ const WorkoutSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
+    uniqueKey:{
+      type: String,
+    },
     workoutName: {
       type: String,
       required: true,

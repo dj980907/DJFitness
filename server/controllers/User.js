@@ -1,6 +1,7 @@
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import dotenv from "dotenv";
+import { v4 as uuidv4 } from 'uuid';
 import { createError } from "../error.js";
 import User from "../models/User.js";
 import Workout from "../models/Workout.js";
@@ -146,7 +147,8 @@ export const getUserDashboard = async (req, res, next) => {
       const date = new Date(
         currentDateFormatted.getTime() - i * 24 * 60 * 60 * 1000
       );
-      weeks.push(`${date.getDate()}th`);
+      // weeks.push(`${date.getDate()}th`);
+      weeks.push(getDateSuffix(date.getDate()));
 
       const startOfDay = new Date(
         date.getFullYear(),
@@ -290,41 +292,41 @@ export const addWorkout = async (req, res, next) => {
 
 
     console.log(parsedWorkouts);
-    // // Calculate calories burnt for each workout
-    // await parsedWorkouts.forEach(async (workout) => {
-    //   workout.caloriesBurned = parseFloat(calculateCaloriesBurnt(workout));
-    //   await Workout.create({ ...workout, user: userId });
-    // });
-
-    // return res.status(201).json({
-    //   message: "Workouts added successfully",
-    //   workouts: parsedWorkouts,
-    // });
-
-    // Check for duplicates and insert or update accordingly
-    for (const workout of parsedWorkouts) {
-      const existingWorkout = await Workout.findOne({
-        workoutName: workout.workoutName,
-        user: userId,
-      });
-      if (existingWorkout) {
-        workout.caloriesBurned = parseFloat(calculateCaloriesBurnt(workout));
-        // Update existing workout
-        await Workout.updateOne(
-          { _id: existingWorkout._id },
-          { $set: workout }
-        );
-      } else {
-        // Calculate calories burnt for each workout
-        workout.caloriesBurned = parseFloat(calculateCaloriesBurnt(workout));
-        await Workout.create({ ...workout, user: userId });
-      }
-    }
+    // Calculate calories burnt for each workout
+    await parsedWorkouts.forEach(async (workout) => {
+      workout.caloriesBurned = parseFloat(calculateCaloriesBurnt(workout));
+      await Workout.create({ ...workout, user: userId });
+    });
 
     return res.status(201).json({
       message: "Workouts added successfully",
       workouts: parsedWorkouts,
     });
+
+    // // Check for duplicates and insert or update accordingly
+    // for (const workout of parsedWorkouts) {
+    //   const existingWorkout = await Workout.findOne({
+    //     workoutName: workout.workoutName,
+    //     user: userId,
+    //   });
+    //   if (existingWorkout) {
+    //     workout.caloriesBurned = parseFloat(calculateCaloriesBurnt(workout));
+    //     // Update existing workout
+    //     await Workout.updateOne(
+    //       { _id: existingWorkout._id },
+    //       { $set: workout }
+    //     );
+    //   } else {
+    //     // Calculate calories burnt for each workout
+    //     workout.caloriesBurned = parseFloat(calculateCaloriesBurnt(workout));
+    //     await Workout.create({ ...workout, user: userId });
+    //   }
+    // }
+
+    // return res.status(201).json({
+    //   message: "Workouts added successfully",
+    //   workouts: parsedWorkouts,
+    // });
 
 
 
@@ -339,6 +341,7 @@ const parseWorkoutLine = (parts) => {
   const details = {};
   // console.log(parts);
   if (parts.length >= 5) {
+    details.uniqueKey = uuidv4();
     details.workoutName = parts[1].substring(1).trim();
     details.sets = parseInt(parts[2].split("sets")[0].substring(1).trim());
     details.reps = parseInt(
@@ -447,3 +450,24 @@ const calculateCaloriesBurnt = (workoutDetails) => {
 //   const caloriesBurntPerMinute = 5; // Sample value, actual calculation may vary
 //   return durationInMinutes * caloriesBurntPerMinute * weightInKg;
 // };
+
+
+function getDateSuffix(date) {
+  const lastDigit = date % 10;
+  const lastTwoDigits = date % 100;
+
+  if (lastTwoDigits >= 11 && lastTwoDigits <= 13) {
+      return `${date}th`;
+  }
+
+  switch (lastDigit) {
+      case 1:
+          return `${date}st`;
+      case 2:
+          return `${date}nd`;
+      case 3:
+          return `${date}rd`;
+      default:
+          return `${date}th`;
+  }
+}
