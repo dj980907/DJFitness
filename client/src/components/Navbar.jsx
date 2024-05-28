@@ -110,17 +110,16 @@ const MobileMenu = styled.ul`
   flex-direction: column;
   align-items: start;
   gap: 16px;
-  padding: 0 6px;
   list-style: none;
-  width: 90%;
-  padding: 12px 40px 24px 40px;
+  width: 94vw; 
+  padding: 50px 20px;
   background: ${({ theme }) => theme.bg};
   position: absolute;
-  top: 80px;
-  right: 0;
-  transition: all 0.6s ease-in-out;
-  transform: ${({ isOpen }) =>
-    isOpen ? "translateY(0)" : "translateY(-100%)"};
+  top: 65px;
+  left: 0;
+  right:0;
+  transition: all 0.9s ease-in-out;
+  transform: ${({ isOpen }) => (isOpen ? "translateY(0)" : "translateY(-100%)")};
   border-radius: 0 0 20px 20px;
   box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.2);
   opacity: ${({ isOpen }) => (isOpen ? "100%" : "0")};

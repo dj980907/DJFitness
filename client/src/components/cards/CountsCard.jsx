@@ -3,7 +3,7 @@ import styled from "styled-components";
 
 const Card = styled.div`
   flex: 1;
-  min-width: 200px;
+  min-width: 250px;
   padding: 24px;
   border: 1px solid ${({ theme }) => theme.text_primary + 20};
   border-radius: 14px;
@@ -94,9 +94,9 @@ const CountsCard = ({ item, data }) => {
         </Value>
         <Desc>{item.desc}</Desc>
       </Left>
-      {/* <Icon color={item.color} bg={item.lightColor}>
+      <Icon color={item.color} bg={item.lightColor}>
         {item.icon}
-      </Icon> */}
+      </Icon>
     </Card>
   );
 };
